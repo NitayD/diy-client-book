@@ -274,8 +274,8 @@ class ClientItem extends Component {
       <tr>
         <td>{fio}</td>
         <td>{phone}</td>
-        <td>{childrens.map(child => (
-          <>{child}<br/></>
+        <td>{childrens.map((child, order) => (
+          <Fragment key={`child-${order}-${index}`}>{child.fio} {child.age} лет<br /></Fragment>
         ))}</td>
         <td className='control_btns'>
           <ButtonToolbar>

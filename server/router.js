@@ -1,5 +1,4 @@
 function Router () {
-  console.log('router')
   this.routes = []
 }
 

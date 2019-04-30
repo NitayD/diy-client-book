@@ -53,7 +53,7 @@ class MasterClass extends Component {
     })
   }
   render() {
-    const { project, maxMembers, price, date, members, isLoading, isError } = this.state
+    const { project/*, maxMembers*/, price, date, members, isLoading, isError } = this.state
     return (
       <>
         <style>{`

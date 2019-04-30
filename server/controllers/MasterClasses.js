@@ -105,7 +105,6 @@ const getOne = async (id) => {
 };
 
 const update = async (newMCdata) => {
-  console.time('start')
   try {
     const mc = await MasterClasses.findOne({ _id: newMCdata.id })
     if (!mc) return { status: false, error: 'No MC by id' }
@@ -121,7 +120,6 @@ const update = async (newMCdata) => {
       try {
         const parentFromDB = await Clients.find({ _id: { $in: parentIDs } })
         const childFromDB = await Childrens.find({ _id: { $in: childIDs } })
-        console.timeEnd('start')
         members.forEach(async (member) => {
           const par = parentFromDB.find(item=>`${item._doc._id}` === `${member.parent}`)
           const chi = childFromDB.find(item=>`${item._doc._id}` === `${member.child}`)

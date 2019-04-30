@@ -50,14 +50,19 @@ const newClient = async ({ fio, phone, childrens = [] }) => {
 const get = async () => {
   const data = await Clients.find();
   let projectIDs = []
+  let childIDs = []
   data.forEach(({ _doc }) => {
     projectIDs.push(..._doc.favoritesMC, ..._doc.completeMC)
+    childIDs.push(..._doc.childrens)
   })
   projectIDs = unique(projectIDs)
+  childIDs = unique(childIDs)
   const projectsData = await Projects.find({ _id: { $in: projectIDs } })
+  const childrenData = await Childrens.find({ _id: { $in: childIDs } })
   data.forEach(({ _doc }) => {
     _doc.favoritesMC = _doc.favoritesMC.map(mc => projectsData.find(proj => `${proj._id}` === `${mc}`))
     _doc.completeMC = _doc.completeMC.map(mc => projectsData.find(proj => `${proj._id}` === `${mc}`))
+    _doc.childrens = _doc.childrens.map(child => childrenData.find(childBD => `${childBD._id}` === `${child}`))
   })
   return { status: true, data }
 };
@@ -102,7 +107,7 @@ const remove = async (id) => {
     childrens.forEach(async (child) => {
       const newParents = child._doc.parents.filter(parentid => `${parentid}` !== `${id}`)
       child.parents = newParents
-      await child.save(console.error)
+      await child.save(err=>console.error(err))
     })
     return { status: true, data: result }
   } catch (err) {

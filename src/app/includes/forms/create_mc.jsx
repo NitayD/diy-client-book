@@ -145,7 +145,7 @@ class CreateMCForm extends Component {
     e.preventDefault()
     if (this.props.status !== 'start_creating') return this.sendNotification('warning', "Сейчас создание нового мастер-класса невозможно...")
     const { date, price, maxMembers, currentProject } = this.state
-    if (currentProject.length === 0) return this.sendNotification('warning', "Вы не выбрали Проект")
+    if (currentProject._id.length !== 24) return this.sendNotification('warning', "Вы не выбрали Проект")
     if (!date) return this.sendNotification('warning', "Вы не указали дату МК")
     if (typeof price !== 'number') return this.sendNotification('warning', "Ошибка в цене")
     if (typeof maxMembers !== 'number') return this.sendNotification('warning', "Ошибка в максимальном количестве участников")
@@ -158,7 +158,7 @@ class CreateMCForm extends Component {
     const result = {}
     result.date = date
     result.price = price
-    result.project = currentProject
+    result.project = currentProject._id
     result.maxMembers = maxMembers
     this.sendNotification('info', "Запрос на сервер...")
     if (!!this.props.mcid) {

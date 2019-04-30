@@ -142,7 +142,7 @@ class Main extends Component {
         <Container style={{ marginTop: '2rem', marginBottom: '2rem' }}>
           <Row>
             <Col>
-              <Button variant="outline-dark"><Link to='/create/mc'>+Добавить Мастер-Класс</Link></Button>
+              <Link to='/create/mc' className='btn btn-outline-dark'>+Добавить Мастер-Класс</Link>
             </Col>
           </Row>
           {
@@ -173,7 +173,7 @@ class Main extends Component {
           }
           <Row>
             <Col>
-              <Button variant="outline-dark"><Link to='/create/mc'>+Добавить Мастер-Класс</Link></Button>
+              <Link to='/create/mc' className='btn btn-outline-dark'>+Добавить Мастер-Класс</Link>
             </Col>
           </Row>
         </Container>

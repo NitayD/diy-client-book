@@ -3,14 +3,14 @@ const ControllerProjects = require('../controllers/Projects')
 
 const router = Router();
 
-router.get('/', async (res, req) => {
+router.get('/', async (req, res) => {
   return res.send(await ControllerProjects.get());
 });
-router.get('/with_favorites', async (res, req) => {
+router.get('/with_favorites', async (req, res) => {
   return res.send(await ControllerProjects.getWithFavorites());
 }); 
 
-router.post('/new', async (res, req) => {
+router.post('/new', async (req, res) => {
   const params = req.body
   const result = await ControllerProjects.new(params)
   if (result) {
@@ -20,7 +20,7 @@ router.post('/new', async (res, req) => {
   }
 })
 
-router.put('/update', (res, req) => {
+router.put('/update', (req, res) => {
   const params = req.body
   if (ControllerProjects.update(params)) {
     return res.send('OK, updated Client');
@@ -29,7 +29,7 @@ router.put('/update', (res, req) => {
   }
 })
 
-router.delete('/delete/:id', async (res, req) => {
+router.delete('/delete/:id', async (req, res) => {
   try {
     res.send(await ControllerProjects.delete(req.params.id))
   } catch (err) {

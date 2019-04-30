@@ -3,23 +3,23 @@ const ControllerMasterClasses = require('../controllers/MasterClasses')
 
 const router = Router();
 
-router.get('/', async (res, req) => {
+router.get('/', async (req, res) => {
   return res.send(await ControllerMasterClasses.get());
 })
 
-router.get('/old', async (res, req) => {
+router.get('/old', async (req, res) => {
   return res.send(await ControllerMasterClasses.getOld());
 })
 
-router.get('/all', async (res, req) => {
+router.get('/all', async (req, res) => {
   return res.send(await ControllerMasterClasses.getAll());
 })
 
-router.get('/get/:mcid', async (res, req) => {
+router.get('/get/:mcid', async (req, res) => {
   return res.send(await ControllerMasterClasses.getOne(req.params.mcid));
 });
 
-router.post('/new', async (res, req) => {
+router.post('/new', async (req, res) => {
   const params = req.body
   const result = await ControllerMasterClasses.new(params)
   if (result) {
@@ -29,13 +29,13 @@ router.post('/new', async (res, req) => {
   }
 })
 
-router.put('/update', async (res, req) => {
+router.put('/update', async (req, res) => {
   const params = req.body
   const result = await ControllerMasterClasses.update(params)
   return res.send(result)
 })
 
-router.delete('/delete/:mcid', async (res, req) => {
+router.delete('/delete/:mcid', async (req, res) => {
   const result = await ControllerMasterClasses.delete(req.params.mcid)
   return res.send(result)
 })
