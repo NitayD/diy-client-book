@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      function loadFont(fontName, woffUrl, woff2Url) {
+        var nua = navigator.userAgent;
+        var noSupport = !window.addEventListener
+          || (nua.match(/(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/) && !nua.match(/Chrome/))
+        if (noSupport) { return; }
+        var loSto = {};
+        try { loSto = localStorage || {}; } catch (ex) { }
+        var localStoragePrefix = 'x-font-' + fontName;
+        var localStorageUrlKey = localStoragePrefix + 'url';
+        var localStorageCssKey = localStoragePrefix + 'css';
+        var storedFontUrl = loSto[localStorageUrlKey];
+        var storedFontCss = loSto[localStorageCssKey];
+        var styleElement = document.createElement('style');
+        styleElement.rel = 'stylesheet';
+        document.head.appendChild(styleElement);
+        if (storedFontCss && (storedFontUrl === woffUrl || storedFontUrl === woff2Url)) {
+          styleElement.textContent = storedFontCss;
+        } else {
+          var url = (woff2Url && supportsWoff2()) ? woff2Url : woffUrl;
+          var request = new XMLHttpRequest();
+          request.open('GET', url);
+          request.onload = function () {
+            if (request.status >= 200 && request.status < 400) {
+              loSto[localStorageUrlKey] = url;
+              loSto[localStorageCssKey] = styleElement.textContent = request.responseText;
+            }
+          };
+          request.send();
+        }
+        function supportsWoff2() {
+          if (!window.FontFace) { return false; }
+          var f = new FontFace('t', 'url("data:application/font-woff2,") format("woff2")', {});
+          f.load();
+          return f.status === 'loading';
+        }
+      }
+      loadFont('ObiSans', '%PUBLIC_URL%/fonts/ObiSansML/font-woff.css', '%PUBLIC_URL%/fonts/ObiSans/font-woff2.css');
+    </script>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta
@@ -22,7 +61,18 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>DIY Студия</title>
+    <script>
+      window.location.parseHash = function () {
+        var hash = (this.hash || '').replace(/^#/, '').split('&');
+        var parsed = {};
+        for (let i = 0, el; i < hash.length; i++) {
+          el = hash[i].split('=');
+          if (el.length !== 1) parsed[el[0]] = el[1];
+        }
+        return parsed;
+      };
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
