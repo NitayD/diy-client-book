@@ -49,6 +49,7 @@ class App extends Component {
           draggable
           pauseOnHover
         />
+        <a href='/mc' className='d-none'></a>
       </>
     );
   }

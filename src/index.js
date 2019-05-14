@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-snapshot'
 import { BrowserRouter } from "react-router-dom"
 import { Provider } from 'react-redux'
 
@@ -13,7 +13,7 @@ import * as serviceWorker from './serviceWorker'
 
 const store = createStore()
 
-ReactDOM.render(
+render(
   <Provider store={store}>
     <style>{`
       a, a:hover { color: inherit; text-decoration: inherit; }

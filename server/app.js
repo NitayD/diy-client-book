@@ -1,31 +1,58 @@
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser')
-const multer = require('multer')
-const upload = multer();
-const dbconf = require('./../config').db
-const mongoose = require('mongoose')
-const cors = require('cors')
+const uWS = require('uWebSockets.js');
+const fs = require('fs');
+const path = require('path');
 
-const routes = require('./routes/index')
+const port = 80
 
-mongoose.connect(`mongodb://${dbconf.login}:${dbconf.pass}@ds135036.mlab.com:35036/clientbook`, { useNewUrlParser: true })
-let db = mongoose.connection
-
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(`/api/clients`, routes.clients);
-app.use(`/api/childrens`, routes.childrens);
-app.use(`/api/mc`, routes.masterclasses);
-app.use(`/api/projects`, routes.projects);
-routes.inventory.init(app, '/api/inventory')
-
-app.get(`/`, upload.array(), (req, res) => {
-  res.send('OK')
-});
-
-app.listen(3003, function () {
-  console.log(`Example app listening on port 3003!`);
+const app = uWS./*SSL*/App()
+  .get('/*', (res, req) => {
+    let filePath = '.' + req.getUrl();
+    if (filePath == './') { filePath = './index.html'; }
+    const extname = path.extname(filePath);
+    let contentType = 'text/html';
+    switch (extname) {
+      case '.js':
+        contentType = 'text/javascript';
+        break;
+      case '.css':
+        contentType = 'text/css';
+        break;
+      case '.json':
+        contentType = 'application/json';
+        break;
+      case '.png':
+        contentType = 'image/png';
+        break;
+      case '.jpg':
+        contentType = 'image/jpg';
+        break;
+    }
+    try {
+      const content = fs.readFileSync('build/' + filePath);
+      res.writeStatus('200');
+      res.writeHeader('Content-Type', contentType);
+      res.end(content);
+    } catch (error) {
+      if (error.code == 'ENOENT') {
+        try {
+          const notFound = fs.readFileSync('build/404.html');
+          res.writeStatus('200');
+          res.writeHeader('Content-Type', 'text/html');
+          res.end(notFound);
+        } catch (error) {
+          res.writeStatus('404');
+          res.end('Not found!');
+        }
+      }
+      else {
+        res.writeStatus('500');
+        res.end('Sorry, check with the site admin for error: ' + error.code + ' ..\n');
+      }
+    }
+}).listen(port, (token) => {
+  if (token) {
+    console.log('Listening to port ' + port);
+  } else {
+    console.log('Failed to listen to port ' + port);
+  }
 });

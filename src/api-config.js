@@ -1,3 +1,3 @@
 export default {
-  apiaddress: 'https://sleepy-depths-62595.herokuapp.com/api'
+  apiaddress: 'http://127.0.0.1:3003/api'
 }
