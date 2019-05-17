@@ -1,3 +1,3 @@
 export default {
-  apiaddress: 'http://api.diystudio.kz'
+  apiaddress: 'https://api.diystudio.kz'
 }
