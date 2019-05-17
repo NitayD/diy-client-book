@@ -31,6 +31,9 @@ class Header extends Component {
               <Nav.Item>
                 <Link to="/clients" className="nav-link">Список взрослых</Link>
               </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href='https://diystudio.kz/'>Внешний сайт</Nav.Link>
+              </Nav.Item>
             </Nav>
           </Row>
         </Container>
