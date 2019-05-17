@@ -1,6 +1,10 @@
 const express = require('express')
 const app = express()
 
-app.use(express.static('build'));
+async function start() {
+  app.use(express.static('build'));
+  return app
+}
 
-module.exports = app
+
+module.exports = start()
