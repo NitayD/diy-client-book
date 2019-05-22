@@ -17,7 +17,7 @@ import {
 
 export function* rootSaga() {
   const tokenFromCookie = cookieLibs.get('token')
-  if (!tokenFromCookie) {
+  if (!!tokenFromCookie) {
     axios.defaults.headers.common = {
       ...axios.defaults.headers.common,
       Authorization: tokenFromCookie
@@ -31,7 +31,7 @@ export function* rootSaga() {
 function* authtorizationAsync({ payload }) {
   try {
     const tokenFromCookie = cookieLibs.get('token')
-    if (!tokenFromCookie) {
+    if (!!tokenFromCookie) {
       axios.defaults.headers.common = {
         ...axios.defaults.headers.common,
         Authorization: tokenFromCookie
