@@ -48,7 +48,6 @@ class Login extends PureComponent {
     this.props.loginIn({...this.state})
   }
   render() {
-    console.log(this.props)
     const { email, password } = this.state
     if (!this.props.status || !this.props.token)
       return (

@@ -36,6 +36,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    console.log(axios.defaults.headers.common)
     axios.get(`${config.apiaddress}/mc`)
       .then(({ status, data }) => {
         if (status >= 200 && status < 300) {
