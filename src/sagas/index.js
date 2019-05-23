@@ -15,7 +15,9 @@ import {
   UNAUTHORIZATION
 } from '../actions/login'
 
+
 export function* rootSaga() {
+  cookieLibs.delete('token')
   const tokenFromCookie = cookieLibs.get('token')
   if (!!tokenFromCookie) {
     axios.defaults.headers.common = {
@@ -42,11 +44,11 @@ function* authtorizationAsync({ payload }) {
       const { status, data } = result
       if (status >= 200 && status < 300) {
         if (data.success && !!data.token) {
-          yield put(loginInSucceded(data.token))
           axios.defaults.headers.common = {
             ...axios.defaults.headers.common,
             Authorization: data.token
           }
+          yield put(loginInSucceded(data.token))
           const dt = new Date()
           dt.setDate(dt.getDate() + 1)
           dt.setHours(0)
