@@ -32,7 +32,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         status: 'loginned-failed',
         loading: false,
-        error: true,
+        error: payload,
         token: false
       }
     case UNAUTHORIZATION:

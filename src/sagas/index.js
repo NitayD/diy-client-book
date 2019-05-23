@@ -30,15 +30,15 @@ export function* rootSaga() {
 }
 
 function* authtorizationAsync({ payload }) {
-  try {
-    const tokenFromCookie = cookieLibs.get('token')
-    if (!!tokenFromCookie) {
-      axios.defaults.headers.common = {
-        ...axios.defaults.headers.common,
-        Authorization: tokenFromCookie
-      }
-      yield put(loginInSucceded(tokenFromCookie))
-    } else {
+  const tokenFromCookie = cookieLibs.get('token')
+  if (!!tokenFromCookie) {
+    axios.defaults.headers.common = {
+      ...axios.defaults.headers.common,
+      Authorization: tokenFromCookie
+    }
+    yield put(loginInSucceded(tokenFromCookie))
+  } else {
+    try {
       const result = yield axios.post(`${config.apiaddress}/user/login`, payload)
       const { status, data } = result
       if (status >= 200 && status < 300) {
@@ -64,17 +64,18 @@ function* authtorizationAsync({ payload }) {
       } else {
         yield put(loginInFailed())
       }
+    } catch (error) {
+      console.dir(error)
+      yield put(loginInFailed(error.message))
     }
-    const sagas = [
-      yield fork(watchCreatingProjects),
-      yield fork(watchCreatingMC),
-      yield fork(watchCreatingMember),
-      yield fork(watchCreatingClient),
-      yield fork(watchCreatingChild)
-    ]
-    yield take(UNAUTHORIZATION)
-    sagas.forEach(saga => cancel(saga))
-  } catch (error) {
-    yield put(loginInFailed(error))
   }
+  const sagas = [
+    yield fork(watchCreatingProjects),
+    yield fork(watchCreatingMC),
+    yield fork(watchCreatingMember),
+    yield fork(watchCreatingClient),
+    yield fork(watchCreatingChild)
+  ]
+  yield take(UNAUTHORIZATION)
+  sagas.forEach(saga => cancel(saga))
 }

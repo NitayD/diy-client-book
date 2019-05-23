@@ -23,8 +23,8 @@ export const loginInSucceded = (token) => {
   }
 }
 
-export const loginInFailed = () => {
-  return { type: LOGIN_IN_FAILED }
+export const loginInFailed = (message) => {
+  return { type: LOGIN_IN_FAILED, payload: message }
 }
 
 export const unauthtorization = () => {

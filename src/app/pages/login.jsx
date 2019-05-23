@@ -52,10 +52,10 @@ class Login extends PureComponent {
     if (!this.props.status || !this.props.token)
       return (
         <Container>
-          <Alert show={this.props.error} variant="danger" style={{marginTop: 15}}>
+          <Alert show={!!this.props.error} variant="danger" style={{marginTop: 15}}>
             <Alert.Heading>Ошибка при авторизации!</Alert.Heading>
             <p>
-              Указан неверный e-mail или пароль, проверьте правильность введённых вами данных!
+              { this.props.error }
             </p>
           </Alert>
           <div className='d-flex justify-content-center align-items-center' style={{paddingTop: '15vh'}}>
