@@ -18,6 +18,18 @@ import Spinner from 'react-bootstrap/Spinner'
 
 import CreateMemberForm from '../includes/forms/create_member'
 
+
+function sendNotif(text) {
+  toast.info(text, {
+    position: "top-right",
+    autoClose: 2500,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  })
+}
+
 class MasterClass extends Component {
   constructor(props) {
     super(props)
@@ -54,7 +66,7 @@ class MasterClass extends Component {
       if (status) {
         const { members, maxMembers, price, date, project } = data
         this.setState({ members, maxMembers, price, date, project, isLoading: false, clients: favorites.data },
-          () => update && this.sendNotif('Обновленно'))
+          () => update && sendNotif('Обновленно'))
       } else {
         this.setState({ isLoading: false, isError: true })
       }
@@ -85,7 +97,7 @@ class MasterClass extends Component {
   refreshMembers() {
     this.handleClose()
     this.modalHide()
-    this.sendNotif('Обновляем список участников...')
+    sendNotif('Обновляем список участников...')
     this.setState({isLoading: true})
     this.componentDidMount()
   }
@@ -94,7 +106,7 @@ class MasterClass extends Component {
     try { await this.modalShow(members[memberIndex]) }
     catch (err) {
       this.modalHide()
-      return this.sendNotif("Вы отменили удаление создание мастер-класса")
+      return sendNotif("Вы отменили удаление создание мастер-класса")
     }
     delete members[memberIndex]
     members = members.filter(item => !!item)
@@ -106,21 +118,11 @@ class MasterClass extends Component {
     const result = await axios.put(`${config.apiaddress}/mc/update`, { members, id: this.state.mcid })
     const { status, data } = result
     if (status >= 200 && status < 300) {
-      if (!data.status) {this.sendNotif('Ошибка при обновлении...') }
+      if (!data.status) {sendNotif('Ошибка при обновлении...') }
       else { this.refreshMembers(members) }
     } else {
-      this.sendNotif('Ошибка при удалении')
+      sendNotif('Ошибка при удалении')
     }
-  }
-  sendNotif(text) {
-    toast.info(text, {
-      position: "top-right",
-      autoClose: 2500,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    })
   }
   handleShow(toEdit) { this.setState({ show: true, toEdit: toEdit || {} }) }
   handleClose() { this.setState({ show: false, toEdit: {} }) }

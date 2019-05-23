@@ -20,6 +20,19 @@ const getWeek = function (date) {
   return Math.ceil((((dt - onejan) / 86400000) + onejan.getDay() + 1) / 7)
 }
 
+function sendNotification(type = 'info', text = '') {
+  try {
+    toast[type](text, {
+      position: "top-right",
+      autoClose: 2500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  } catch (err) { console.error(err) }
+}
+
 class Main extends Component {
   constructor() {
     super()
@@ -95,14 +108,14 @@ class Main extends Component {
     try { await this.modalShow(name, date) }
     catch {
       this.modalHide()
-      return this.sendNotification('info', "Вы отменили удаление создание мастер-класса")
+      return sendNotification('info', "Вы отменили удаление создание мастер-класса")
     }
     this.modalHide()
     try {
       const result = await axios.delete(`${config.apiaddress}/mc/delete/${id}`)
       const { status } = result
       if (status >= 200 && status < 300) {
-        this.sendNotification('success', `Вы успешно удалили ${name}`)
+        sendNotification('success', `Вы успешно удалили ${name}`)
         const removedDate = new Date(date)
         const shortDate = `${removedDate.getDate()}-${removedDate.getMonth()}-${removedDate.getFullYear()}`
         const dateWeek = `${getWeek(removedDate)}-${removedDate.getFullYear()}`
@@ -114,25 +127,12 @@ class Main extends Component {
         if (Object.keys(mcs[dateWeek]).length === 0) delete mcs[dateWeek]
         this.setState({ date: mcs })
       } else {
-        this.sendNotification('danger', `Ошибка при удалении ${name}`)
+        sendNotification('danger', `Ошибка при удалении ${name}`)
       }
     } catch (error) {
-      this.sendNotification('danger', `Ошибка при удалении ${name}`)
+      sendNotification('danger', `Ошибка при удалении ${name}`)
       console.error(error)
     }
-  }
-
-  sendNotification(type = 'info', text = '') {
-    try {
-      toast[type](text, {
-        position: "top-right",
-        autoClose: 2500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-    } catch (err) { console.error(err) }
   }
 
   render() {
