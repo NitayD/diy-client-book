@@ -17,7 +17,6 @@ import {
 
 
 export function* rootSaga() {
-  cookieLibs.delete('token')
   const tokenFromCookie = cookieLibs.get('token')
   if (!!tokenFromCookie) {
     axios.defaults.headers.common = {
