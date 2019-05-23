@@ -17,9 +17,7 @@ class CreateMC extends Component {
           </Container>
         </Breadcrumb>
         <Container>
-          <Row>
-            <CreateProjectForm/>
-          </Row>
+          <CreateProjectForm/>
         </Container>
       </>
     );

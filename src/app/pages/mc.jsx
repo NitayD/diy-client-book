@@ -152,7 +152,7 @@ class MasterClass extends Component {
                 </Row>
                 <Row>
                   <Col>
-                    <Table striped bordered hover>
+                    <Table striped bordered hover responsive>
                       <thead>
                         <tr>
                           <th>#</th>
@@ -338,7 +338,7 @@ function FavoritesToMC({ data, handleAdd}) {
           <>
             <p>Всего желающих посетить данный Мастер-Класс - <b>{data.length}</b></p>
             <p>Список желающих попасть на выбранный Мастер-Класс:</p>
-            <Table style={{fontSize: '1.25rem'}}>
+            <Table style={{ fontSize: '1.25rem' }} responsive>
               <tbody>
                 {
                   data.map(client => <tr key={`client-${client._id}`}>

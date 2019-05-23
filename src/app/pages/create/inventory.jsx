@@ -160,7 +160,7 @@ class Inventory extends Component {
         </Breadcrumb>
         <Container>
           <Row style={{paddingBottom: '100px'}}>
-            <Table striped bordered hover>
+            <Table striped bordered hover responsive>
               <thead>
                 <tr>
                   <th>Номер</th>

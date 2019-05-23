@@ -176,7 +176,7 @@ class Clients extends Component {
           </Row>
           <Row>
             <Col>
-              <Table striped bordered hover style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+              <Table striped bordered hover style={{ marginTop: '2rem', marginBottom: '2rem' }} responsive>
                 <thead>
                   <tr>
                     <th>ФИО</th>
@@ -426,7 +426,7 @@ class ClientInfoModal extends Component {
             Связанные взрослые: {family.length > 0 ? family.map(parent => parent) : 'Нет прикрепленных взрослых'}
             <hr />
             Желает посетить: 
-              <Table className='proj-table'>
+              <Table className='proj-table' responsive>
               <style>{`
                   .proj-table tbody {
                     max-height: 300px;

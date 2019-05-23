@@ -212,7 +212,7 @@ class MasterClassDay extends Component {
       <Row>
         <Col>
           <h5 style={{ marginTop: '2vh' }}><PatternedDate date={date} format='short' /></h5>
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead>
               <tr>
                 <th>Проект</th>

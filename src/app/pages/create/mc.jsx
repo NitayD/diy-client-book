@@ -20,9 +20,7 @@ class CreateMC extends Component {
           </Container>
         </Breadcrumb>
         <Container>
-          <Row>
-            <CreateMCForm mcid={ mcid ? mcid : false }/>
-          </Row>
+          <CreateMCForm mcid={ mcid ? mcid : false }/>
         </Container>
       </>
     );
