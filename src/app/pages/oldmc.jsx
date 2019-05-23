@@ -11,6 +11,7 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import Modal from 'react-bootstrap/Modal'
+import Spinner from 'react-bootstrap/Spinner'
 
 import PatternedDate from '../includes/date'
 
@@ -147,7 +148,7 @@ class Main extends Component {
           </Row>
           {
             isLoading
-              ? 'Загрузка'
+              ? <Spinner animation="border" />
               : isError
                 ? 'Произошла ошибка при загрузке данных'
                 : Object.keys(data).map((week, ind) => <div key={`mc-${week}-${ind}`}>

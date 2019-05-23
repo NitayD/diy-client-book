@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
-import { toast } from 'react-toastify'
 
 import { loginIn } from '../../actions/login'
 
@@ -11,19 +10,6 @@ import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
-
-function sendNotification(type = 'info', text = '') {
-  try {
-    toast[type](text, {
-      position: "top-right",
-      autoClose: 2500,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
-  } catch (err) { console.error(err) }
-}
 
 class Login extends PureComponent {
   constructor(props) {

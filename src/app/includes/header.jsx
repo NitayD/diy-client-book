@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { Link } from 'react-router-dom'
