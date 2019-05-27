@@ -18,7 +18,7 @@ export const createNewMemberSucceded = () => {
   return dispatch => {
     toast.success('Участники успешно добавлены в базу данных', {
       position: "top-right",
-      autoClose: 7500,
+      autoClose: 1500,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,

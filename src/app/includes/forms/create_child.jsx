@@ -55,7 +55,7 @@ class CreateClientForm extends Component {
     try {
       toast[type](text, {
         position: "top-right",
-        autoClose: 7500,
+        autoClose: 1500,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,

@@ -18,7 +18,7 @@ export const createNewMCSucceded = () => {
   return dispatch => {
     toast.success('Мастер-класс успешно создан', {
       position: "top-right",
-      autoClose: 7500,
+      autoClose: 1500,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,

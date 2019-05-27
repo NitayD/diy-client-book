@@ -132,7 +132,7 @@ class CreateMCForm extends Component {
     try {
       toast[type](text, {
         position: "top-right",
-        autoClose: 7500,
+        autoClose: 1500,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -227,6 +227,7 @@ class CreateMCForm extends Component {
                   disabled={isLoading}
                   locale="kz-KZ"
                   maxDate={new Date(Date.now() * 2)}
+                  format={"MM-dd h:mm"}
                   onChange={this.onChangeDate}
                   value={date} />
               </Col>

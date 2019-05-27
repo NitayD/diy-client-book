@@ -148,7 +148,9 @@ class Main extends Component {
         </Row>
         {
           isLoading
-            ? <Spinner animation="border" />
+            ? <Spinner animation="border" role="status" className='d-block' style={{ margin: '30px auto' }}>
+              <span className="sr-only">Loading...</span>
+            </Spinner>
             : isError
               ? 'Произошла ошибка при загрузке данных'
               : Object.keys(data).map((week, ind) => <div key={`mc-${week}-${ind}`}>

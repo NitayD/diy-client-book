@@ -18,7 +18,7 @@ export const createNewProjectSucceded = () => {
   return dispatch => {
     toast.success('Проект успешно создан', {
       position: "top-right",
-      autoClose: 7500,
+      autoClose: 1500,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
